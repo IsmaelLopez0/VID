@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<div class="row m-0 justify-content-center aling-items-center vh-100">
+    <form class="d-flex form-inline col-6" action="busqueda/" method="post">
+        {% csrf_token %}
+        <input class="form-control m-2 col-8" name="buscar" id="id_buscar" type="text" placeholder="¿Qué preparas hoy?">
+        <button class="btn btn-outline-dark" type="submit" name="btnBuscar" id="id_btnBuscar" name="button">Buscar</button>
+        <br>
+        <a href="busqueda/" class="m-2 btn text-white" style="background-color: #249E16;">Crear nueva</a>
+    </form>
+</div>
+{% endblock %}

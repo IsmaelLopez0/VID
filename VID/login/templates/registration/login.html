@@ -1,0 +1,32 @@
+{% extends 'baseLogin.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="row col-12 justify-content-center aling-items-center h-100">
+        <form method="post" class="col-4 p-2 m-2 p-4" style="background-color: #FFFFFF;">
+        {% csrf_token %}
+            <div class="row mx-auto">
+                <div class="col-12">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="username" id="id_username" placeholder="Nombre de usuario">
+                    </div>
+                </div>
+            </div>
+            <div class="row mx-auto">
+                <div class="col-12">
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password" id="id_password" placeholder="Contraseña">
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mx-auto">
+                <button type="submit" class="btn btn-lg text-white pl-5 pr-5" name="button" style="background-color: #249E16;">Entrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById("id_username").focus();
+</script>
+
+{% endblock %}
