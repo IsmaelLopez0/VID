@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login.apps.LoginConfig',
-    'recetario.apps.RecetarioConfig',
+    'recetario.apps.RecetarioConfig'
 ]
 
 MIDDLEWARE = [
@@ -119,4 +119,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/' #url a donde se van a buscar las imágenes
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,'static'),
+) #BASE_DIR hace referencia a todo nuestro proyeto FOLDER static
