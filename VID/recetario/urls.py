@@ -9,7 +9,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path('busqueda/', resBusqueda, name='resBusqueda'),
     path('nosotros/', resNosotros, name='resNosotros'),
-    path('registro/', registro, name='registro'),
+    path('registro/', resRegistro, name='resRegistro'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
