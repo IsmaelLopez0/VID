@@ -8,3 +8,6 @@ def resBusqueda(request):
 
 def resNosotros(request):
     return render(request, 'nosotros.html')
+
+def resRegistro(request):
+    return render(request, 'registro.html')
