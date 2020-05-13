@@ -1,15 +1,37 @@
 {% extends 'base.html' %}
 
-
+{% load static %}
 
 {% block content %}
-<div class="row m-0 justify-content-center aling-items-center vh-100">
-    <form class="d-flex form-inline col-6" action="busqueda/" method="post">
-        {% csrf_token %}
-        <input class="form-control m-2 col-8" name="buscar" id="id_buscar" type="text" placeholder="¿Qué preparas hoy?">
-        <button class="btn btn-outline-dark" type="submit" name="btnBuscar" id="id_btnBuscar" name="button">Buscar</button>
-        <br>
-        <a href="busqueda/" class="m-2 btn text-white" style="background-color: #249E16;">Crear nueva</a>
-    </form>
+<div class="container-fluid">
+    <div class="row justify-content-center aling-items-center">
+        <form class="form col-10" action="busqueda/" method="post">
+            {% csrf_token %}
+
+            <div class="mx-auto m-5">
+                <img src="{% static 'img\vegetarianos.png' %}" class="rounded mx-auto d-block" width="150" height="150">
+            </div>
+
+            <div class="row mt-5 col-12">
+                <div class="col-3">
+
+                </div>
+                <div class="col-5 aling-items-center">
+                    <input class="form-control text-monospace" name="buscar" id="id_buscar" type="text" placeholder="¿Qué preparas hoy?">
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-outline-light" type="submit" name="btnBuscar" id="id_btnBuscar" name="button">
+                        <img src="{% static 'buscar.png' %}" class="rounded mx-auto d-block" width="30" height="30">
+                    </button>
+                </div>
+                <div class="col-1">
+                    <a href="busqueda/" class="btn btn-lg text-white" style="background-color: #249E16;">
+                        <img src="{% static 'crear.png' %}" class="rounded mx-auto d-block" width="30" height="30" alt="Crear">
+                    </a>
+                </div>
+            </div>
+
+        </form>
+    </div>
 </div>
 {% endblock %}
