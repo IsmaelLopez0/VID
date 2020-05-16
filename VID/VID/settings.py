@@ -124,3 +124,6 @@ STATIC_URL = '/static/' #url a donde se van a buscar las imágenes
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 ) #BASE_DIR hace referencia a todo nuestro proyeto FOLDER static
+
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
