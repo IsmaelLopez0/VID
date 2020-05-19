@@ -24,10 +24,17 @@
                         <img src="/static/img/crear.png" width="30" height="30" class="d-inline-block align-top" alt="">
                     </a>
                 {% else %}
-                    <a class="navbar-brand" href="{% url 'logout' %}">
-                        Cerrar sesión
-                        <!--img src="/static/img/crear.png" width="30" height="30" class="d-inline-block align-top" alt=""-->
-                    </a>
+                    <div class="dropdown open navbar-brand">
+                        <button class="btn dropdown-toggle text-white" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ request.user.first_name }} {{ request.user.last_name }}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'perfil' %}">Perfil</a>
+                            <a class="dropdown-item" href="#!">Mis recetas</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+                        </div>
+                    </div>
                 {% endif %}
                 <a class="navbar-brand" href="#">
                     Explorar
@@ -49,6 +56,9 @@
         <script src="{% static 'js\jquery-3.4.1.slim.min.js' %}" ></script>
         <script src="{% static 'js\popper.min.js' %}" ></script>
         <script src="{% static 'js\bootstrap.min.js' %}" ></script>
+
+        {% block js %}
+        {% endblock %}
 
     </body>
      {% block pie %}

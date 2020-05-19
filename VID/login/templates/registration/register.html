@@ -52,6 +52,17 @@
             <div class="col-6 mx-auto">
                 <button type="submit" class="btn btn-lg text-white pl-5 pr-5" name="button" style="background-color: #249E16;">Entrar</button>
             </div>
+
+            {% if error %}
+            <div class="alert alert-danger mt-2" role="alert">
+                {% if error == 1 %}
+                    <strong>¡Lo sentimos!</strong> El nombre de usuario ya se encuentra registrado.
+                {% endif %}
+                {% if error == 2 %}
+                <strong>¡El correo ya se encuentra registrado!</strong> Intenta <a href="{% url 'login' %}">iniciar sesión</a>.
+                {% endif %}
+            </div>
+            {% endif %}
         </form>
     </div>
 </div>

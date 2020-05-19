@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row justify-content-center aling-items-center">
-        <form class="form col-10" action="busqueda/" method="post">
+        <form class="form col-10" action="{% url 'resBusqueda' %}" method="post">
             {% csrf_token %}
 
             <div class="mx-auto m-5">
@@ -25,7 +25,7 @@
                     </button>
                 </div>
                 <div class="col-1">
-                    <a href="busqueda/" class="btn btn-lg text-white" style="background-color: #249E16;">
+                    <a href="{% url 'crearReceta' %}" class="btn btn-lg text-white" style="background-color: #249E16;">
                         <img src="{% static 'img/crear.png' %}" class="rounded mx-auto d-block" width="30" height="30" alt="Crear">
                     </a>
                 </div>

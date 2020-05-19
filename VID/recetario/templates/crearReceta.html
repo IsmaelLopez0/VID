@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<form method="post" action="{% url 'guardarReceta' %}" class="col-4 p-2 m-2 p-4 bg-white">
+    {% csrf_token %}
+        <div class="row mx-auto">
+            <div class="col-12">
+                <h2>¡Crea tu receta!</h2>
+            </div>
+            <div class="row mx-auto align-items-end mt-2 mb-3">
+                <img src="{% static 'img\Vegetarianos.png' %}" class="rounded mx-auto d-block" width="100" height="100">
+                <h4 class="font-weight-bold" style="color: #249E16;">VID matchRecipes</h4>
+            </div>
+        </div>
+        <div class="row mx-auto">
+            <div class="col-12">
+                <div class="form-group">
+                    <input class="form-control text-center" type="text" name="nombre" id="id_nombre" placeholder="Nombre de receta" required>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-auto">
+            <div class="col-12">
+                <div class="form-group">
+                    <input class="form-control text-center" type="text" name="ingredientes" id="id_ingredientes" placeholder="Ingredientes" required>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-auto">
+            <div class="col-12">
+                <div class="form-group">
+                    <input class="form-control text-center" type="text" name="descripcion" id="id_descripcion" placeholder="Dscripcion de receta" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 mx-auto">
+            <button type="submit" class="btn btn-lg text-white pl-5 pr-5" name="button" style="background-color: #249E16;">Registrar receta</button>
+        </div>
+    </form>
+<!--
+    {% if lista %}
+        <table>
+            <tr>
+                <td>nombre</td>
+                <td>ingrediente</td>
+            </tr>
+            {% for element in lista %}
+                <tr>
+                    <td>{{ element.nombre }}</td>
+                    <td>{{ element.ingredientes }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %} -->
+{% endblock %}

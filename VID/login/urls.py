@@ -6,4 +6,5 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls'), name='login'),
     path('registrarse', newUser, name='newUser'),
     path('finRegistro', finRegistro, name='finRegistro'),
+    path('perfil', perfil, name='perfil'),
 ]
