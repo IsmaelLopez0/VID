@@ -3,55 +3,159 @@
 {% load static %}
 
 {% block content %}
-<form method="post" action="{% url 'guardarReceta' %}" class="col-4 p-2 m-2 p-4 bg-white">
+<form method="post" action="{% url 'guardarReceta' %}" class="p-2 m-2 p-4 bg-white" enctype="multipart/form-data">
     {% csrf_token %}
-        <div class="row mx-auto">
-            <div class="col-12">
-                <h2>¡Crea tu receta!</h2>
-            </div>
-            <div class="row mx-auto align-items-end mt-2 mb-3">
-                <img src="{% static 'img\Vegetarianos.png' %}" class="rounded mx-auto d-block" width="100" height="100">
-                <h4 class="font-weight-bold" style="color: #249E16;">VID matchRecipes</h4>
-            </div>
+    <div class="row mx-auto">
+        <div class="col-12">
+            <h2>¡Crea tu receta!</h2>
         </div>
-        <div class="row mx-auto">
-            <div class="col-12">
+        <div class="row mx-auto align-items-center mt-2 mb-3">
+            <img src="{% static 'img\Vegetarianos.png' %}" class="rounded mx-auto d-block" width="100" height="100">
+            <h4 class="font-weight-bold" style="color: #249E16;">VID matchRecipes</h4>
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        <div class="col-5">
+            <div class="row mx-auto">
+                <div class="col-12">
+                    <div class="form-group">
+                        <input class="form-control text-center" type="text" name="nombre" id="id_nombre" placeholder="Nombre de receta" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mx-auto">
+                <div class="col-12">
+                    <div class="form-group">
+                        <input class="form-control text-center" type="text" name="ingredientes" id="id_ingredientes" placeholder="Ingredientes" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mx-auto">
+                <div class="col-12">
+                    <div class="form-group">
+                        <input class="form-control text-center" type="text" name="descripcion" id="id_descripcion" placeholder="Descripción corta" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mx-auto">
+                <div class="col-12 form-group">
+                    <div class="">
+                        <input type="file" class="" name="imagenMuestra" id="id_imagenMuestra">
+                        <label class="" for="id_imagenMuestra">Selecciona una imagen</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-center">
                 <div class="form-group">
-                    <input class="form-control text-center" type="text" name="nombre" id="id_nombre" placeholder="Nombre de receta" required>
+                    <button type="button" class="btn btn-outline-success" onclick="add();" id="addImg">+</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="rem();" id="remImg">-</button>
+                </div>
+            </div>
+
+            <div class="row mx-auto">
+                <div class="col-12 form-group">
+                    <div id="images">
+
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row mx-auto">
-            <div class="col-12">
-                <div class="form-group">
-                    <input class="form-control text-center" type="text" name="ingredientes" id="id_ingredientes" placeholder="Ingredientes" required>
+
+        <div class="col-5">
+            <div class="row d-flex justify-content-center">
+                <div class="">
+                    <button type="button" class="btn btn-outline-success" onclick="addpaso();" id="addPaso">+</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="rempaso();" id="remPaso">-</button>
+                </div>
+            </div>
+            <div class="row mx-auto">
+                <div class="col-12">
+                    <div id="pasos">
+                        <div class="form-group" id="div_paso0">
+                            <label class="mr-2">Paso 1:</label>
+                            <textarea class="form-control" name="paso1" id="id_paso1" rows="2" required></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row mx-auto">
-            <div class="col-12">
-                <div class="form-group">
-                    <input class="form-control text-center" type="text" name="descripcion" id="id_descripcion" placeholder="Dscripcion de receta" required>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 mx-auto">
-            <button type="submit" class="btn btn-lg text-white pl-5 pr-5" name="button" style="background-color: #249E16;">Registrar receta</button>
-        </div>
-    </form>
-<!--
-    {% if lista %}
-        <table>
-            <tr>
-                <td>nombre</td>
-                <td>ingrediente</td>
-            </tr>
-            {% for element in lista %}
-                <tr>
-                    <td>{{ element.nombre }}</td>
-                    <td>{{ element.ingredientes }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% endif %} -->
+    </div>
+
+    <div class="row d-flex justify-content-center mb-5">
+        <button type="submit" class="btn btn-lg text-white pl-5 pr-5" name="button" style="background-color: #249E16;">Registrar receta</button>
+    </div>
+</form>
+{% endblock %}
+
+{% block js %}
+<script type='text/javascript'>
+    var num = 0;
+    var numPasos = 1;
+
+    function add(){ num++; ctrlImagenes(); }
+    function rem(){ if(num != 0){num--;} ctrlImagenes(); }
+    function addpaso(){ numPasos++; ctrlPasos(); }
+    function rempaso(){ if(numPasos != 1){numPasos--;} ctrlPasos(); }
+
+    function ctrlImagenes(){
+        var container = document.getElementById("images");
+        while (container.hasChildNodes()) {
+            container.removeChild(container.lastChild);
+        }
+        for (i=0;i<num;i++){
+            var newDiv = document.createElement('div');
+            newDiv.className += "custom-file mb-1";
+            newDiv.id = "div_image" + (i+1);
+            container.appendChild(newDiv);
+
+            var newLabel = document.createElement('label');
+            newLabel.className += "custom-file-label";
+            newLabel.innerHTML = "Imagen extra";
+            newLabel.name = "image" + i;
+            newDiv.appendChild(newLabel);
+
+            var input = document.createElement("input");
+            input.className += "custom-file-input";
+            input.type = "file";
+            input.name = "image" + (i+1);
+            input.id = "id_image" + (i+1);
+            input.required = 'required';
+            //input.accept = "image/*";
+            newDiv.appendChild(input);
+            //newDiv.appendChild(document.createElement("br"));
+        }
+    }
+
+    function ctrlPasos(){
+        var container = document.getElementById("pasos");
+        while (container.hasChildNodes()) {
+            container.removeChild(container.lastChild);
+        }
+        for (i=0;i<numPasos;i++){
+            var newDiv = document.createElement('div');
+            newDiv.className += "form-group";
+            newDiv.id = "div_paso" + (i+1);
+            container.appendChild(newDiv);
+
+            var newLabel = document.createElement('label');
+            newLabel.className += "mr-2";
+            newLabel.innerHTML = "Paso " + (i+1) + ":";
+            newLabel.name = "image" + i;
+            newDiv.appendChild(newLabel);
+
+            var input = document.createElement("textarea");
+            input.className += "form-control";
+            input.name = "paso" + (i+1);
+            input.id = "id_paso" + (i+1);
+            input.rows = "2";
+            input.required = 'required';
+            newDiv.appendChild(input);
+            //newDiv.appendChild(document.createElement("br"));
+        }
+    }
+</script>
 {% endblock %}

@@ -17,13 +17,33 @@ def crearReceta(request):
     return render(request, 'crearReceta.html')
 
 def guardarReceta(request):
-    nombre = request.POST['nombre']
-    ingredientes = request.POST['ingredientes']
-    descripcion = request.POST['descripcion']
-    #descripcion = request.FILE['descripcion']
-    propietario = request.user
-    nuevaReceta = recetas(nombre=nombre, ingredientes=ingredientes, descripcion=descripcion,
-                          propietario=propietario)
-    nuevaReceta.save()
-    return redirect('index')
-
+    if request.method == 'POST':
+        #Guardar datos generales de receta
+        recetaGeneral = recetas(nombre=request.POST['nombre'], ingredientes=request.POST['ingredientes'],
+                                descripcion=request.POST['descripcion'], propietario=request.user,
+                                imagenMuestra=request.FILES['imagenMuestra'])
+        recetaGeneral.save()
+        #Guardar imagenes extra de receta
+        iterador = 1
+        bandera = True
+        while bandera:
+            img = imgReceta(receta=recetaGeneral, imagen=request.FILES["image" + str(iterador)])
+            img.save()
+            iterador += 1
+            try:
+                print(request.FILES["image" + str(iterador)])
+            except:
+                bandera = False
+        # Guardar pasos de receta
+        iterador = 1
+        bandera = True
+        while bandera:
+            paso = pasosReceta(receta=recetaGeneral, paso=request.POST["paso" + str(iterador)], pasoNumer=iterador)
+            paso.save()
+            iterador += 1
+            try:
+                print(request.POST["paso" + str(iterador)])
+            except:
+                bandera = False
+        return redirect('index')
+    return redirect('crearReceta')
