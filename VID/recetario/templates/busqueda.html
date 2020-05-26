@@ -1,64 +1,21 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-<div class="row m-5">
-    {% for element in resultado %}
-    <div class="card float-left" style="width: 18rem;">
-      <img src="https://previews.123rf.com/images/batareykin/batareykin1406/batareykin140600209/29233798-rebanada-cuadrada-de-color-naranja-icono-de-la-fruta-jugosa-aislado-en-el-fondo-blanco-ilustraci%C3%B3n-vect.jpg" class="card-img-top" alt="...">
-      <div class="card-body" style="background-color: #249E16;">
-        <h5 class="card-title text-white">{{ element.nombre }}</h5>
-        <p class="card-text text-white">{{ element.descripcion }}</p>
-        <a href="#" class="btn btn-light float-right">Ver receta</a>
-      </div>
-    </div>
-    {% endfor %}
-
-    <div class="card mx-auto" style="width: 18rem;">
-      <img src="https://previews.123rf.com/images/batareykin/batareykin1406/batareykin140600209/29233798-rebanada-cuadrada-de-color-naranja-icono-de-la-fruta-jugosa-aislado-en-el-fondo-blanco-ilustraci%C3%B3n-vect.jpg" class="card-img-top" alt="...">
-      <div class="card-body" style="background-color: #249E16;">
-        <h5 class="card-title text-white">Nombre de receta</h5>
-        <p class="card-text text-white">Descripción de receta</p>
-        <a href="#" class="btn btn-light float-right">Ver receta</a>
-      </div>
-    </div>
-
-    <div class="card float-right" style="width: 18rem;">
-      <img src="https://previews.123rf.com/images/batareykin/batareykin1406/batareykin140600209/29233798-rebanada-cuadrada-de-color-naranja-icono-de-la-fruta-jugosa-aislado-en-el-fondo-blanco-ilustraci%C3%B3n-vect.jpg" class="card-img-top" alt="...">
-      <div class="card-body" style="background-color: #249E16;">
-        <h5 class="card-title text-white">Nombre de receta</h5>
-        <p class="card-text text-white">Descripción de receta</p>
-        <a href="#" class="btn btn-light float-right">Ver receta</a>
-      </div>
+<div class="container-fluid">
+    <h4 class="">Resultado de la busqueda: {{ buscar }} </h4>
+    <div class="row m-4">
+        {% for element in resultado %}
+        <div class="card float-left col-3 border-0 mt-3">
+            <img src="{{ MEDIA_URL }}{{ element.imagenMuestra }}" class="card-img-top" height="200px" width="200px" alt="...">
+            <div class="card-body" style="background-color: #249E16;">
+                <h5 class="card-title text-white">{{ element.nombre }}</h5>
+                <p class="card-text text-white">{{ element.descripcion }}</p>
+                <a href="#" class="btn btn-light float-right">Ver receta</a>
+          </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
-
-<div class="row m-5">
-    <div class="card float-left" style="width: 18rem;">
-      <img src="https://previews.123rf.com/images/batareykin/batareykin1406/batareykin140600209/29233798-rebanada-cuadrada-de-color-naranja-icono-de-la-fruta-jugosa-aislado-en-el-fondo-blanco-ilustraci%C3%B3n-vect.jpg" class="card-img-top" alt="...">
-      <div class="card-body" style="background-color: #249E16;">
-        <h5 class="card-title text-white">Nombre de receta</h5>
-        <p class="card-text text-white">Descripción de receta</p>
-        <a href="#" class="btn btn-light float-right">Ver receta</a>
-      </div>
-    </div>
-
-    <div class="card mx-auto" style="width: 18rem;">
-      <img src="https://previews.123rf.com/images/batareykin/batareykin1406/batareykin140600209/29233798-rebanada-cuadrada-de-color-naranja-icono-de-la-fruta-jugosa-aislado-en-el-fondo-blanco-ilustraci%C3%B3n-vect.jpg" class="card-img-top" alt="...">
-      <div class="card-body" style="background-color: #249E16;">
-        <h5 class="card-title text-white">Nombre de receta</h5>
-        <p class="card-text text-white">Descripción de receta</p>
-        <a href="#" class="btn btn-light float-right">Ver receta</a>
-      </div>
-    </div>
-
-    <div class="card float-right" style="width: 18rem;">
-      <img src="https://previews.123rf.com/images/batareykin/batareykin1406/batareykin140600209/29233798-rebanada-cuadrada-de-color-naranja-icono-de-la-fruta-jugosa-aislado-en-el-fondo-blanco-ilustraci%C3%B3n-vect.jpg" class="card-img-top" alt="...">
-      <div class="card-body" style="background-color: #249E16;">
-        <h5 class="card-title text-white">Nombre de receta</h5>
-        <p class="card-text text-white">Descripción de receta</p>
-        <a href="#" class="btn btn-light float-right">Ver receta</a>
-      </div>
-    </div>
-</div>
-
 {% endblock %}
