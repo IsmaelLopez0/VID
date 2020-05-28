@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid row justify-content-around mb-5">
+<div class="container-fluid row justify-content-around mb-5 justify-content-center">
     <div class="card m-3 col-5">
         <form class="card-body justify-content-center row" method="post">
             {% csrf_token %}
@@ -13,23 +13,23 @@
                 </div>
                 <div class="form-group mb-2">
                     <label class="mr-2">Nombre de usuario:</label>
-                    <input type="text" class="form-control" value="{{ user.username }}" name="username" id="id_username" placeholder="Nombre de usuario" readonly>
+                    <input type="text" class="form-control" value="{{ user.username }}" name="username" id="id_username" placeholder="{{ request.user.username }}" readonly>
                     <p class="small text-black-50">Así es como te verá el resto de usuarios</p>
                 </div>
 
                 <div class="form-group mb-2">
                     <label class="mr-2">Nombre(s):</label>
-                    <input type="text" class="form-control" value="{{ user.first_name }}" name="first_name" id="id_first_name" placeholder="Nombres" onKeyUp="validar();">
+                    <input type="text" class="form-control" value="{{ user.first_name }}" name="first_name" id="id_first_name" placeholder="{{ request.user.first_name }}" onKeyUp="validar();">
                 </div>
 
                 <div class="form-group mb-2">
                     <label class="mr-2">Apellidos:</label>
-                    <input type="text" class="form-control" value="{{ user.last_name }}" name="last_name" id="id_last_name" placeholder="Apellidos" onKeyUp="validar();">
+                    <input type="text" class="form-control" value="{{ user.last_name }}" name="last_name" id="id_last_name" placeholder="{{ request.user.last_name }}" onKeyUp="validar();">
                 </div>
 
                 <div class="form-group mb-2">
                     <label class="mr-2">Correo:</label>
-                    <input type="email" class="form-control" value="{{ user.email }}" name="email" id="id_email" placeholder="Correo" onKeyUp="validar();">
+                    <input type="email" class="form-control" value="{{ user.email }}" name="email" id="id_email" placeholder="{{ request.user.email }} onKeyUp="validar();">
                 </div>
 
                 <div class="row justify-content-center mt-3">
