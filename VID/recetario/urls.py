@@ -12,6 +12,8 @@ urlpatterns = [
     path('registro/', resRegistro, name='resRegistro'),
     path('crear_receta/', crearReceta, name='crearReceta'),
     path('regReceta/', guardarReceta, name='guardarReceta'),
+    path('explorar/', resExplorar, name='resExplorar'),
+    path('mostrar/<id>', mostrarReceta, name='mostrarReceta'),
     path('misRecetas/', misRecetas, name='misRecetas'),
     path('eliminar/<id>', eliminarReceta, name='eliminarReceta'),
 ]

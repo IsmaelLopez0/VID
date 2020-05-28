@@ -7,7 +7,16 @@ def resBusqueda(request):
     #Consulta like SQL... es nombreDelCampo__contains=valorABuscar
     resultado = recetas.objects.filter(nombre__contains=buscar)
     return render(request, 'busqueda.html', {'resultado': resultado,
-                                             'buscar': buscar})
+                                             'buscar': buscar})                                          
+
+
+def mostrarReceta(request, id):
+    
+    return render(request, 'mostrar.html', {'resultadoReceta': resultadoReceta})   
+
+def resExplorar(request):
+    expReceta = recetas.objects.all()   
+    return render(request, 'explorar.html',{'expReceta':expReceta})                                          
 
 def resNosotros(request):
     return render(request, 'nosotros.html')
@@ -21,7 +30,7 @@ def crearReceta(request):
 def guardarReceta(request):
     if request.method == 'POST':
         #Guardar datos generales de receta
-        recetaGeneral = recetas(nombre=request.POST['nombre'], ingredientes=request.POST['ingredientes'],
+        recetaGeneral = recetas(nombre=request.POST['nombre'],
                                 descripcion=request.POST['descripcion'], propietario=request.user,
                                 imagenMuestra=request.FILES['imagenMuestra'])
         recetaGeneral.save()
@@ -56,6 +65,24 @@ def guardarReceta(request):
             # Se intenta mostrar el contenido del siguiente paso a guardar
             try:
                 print(request.POST["paso" + str(iterador)])
+            except:
+                # Si falla el intento la "bandera" cambia a false para que el ciclo se detenga
+                bandera = False
+        ######Guardar recetario de receta
+        #Iterador para guardar cada una de los ingredientes
+        iterador = 1
+        #Esta "bandera" se utiliza para que en cuanto ya no encuentre un siguiente elemento deje de intentar guardar
+        bandera = True
+        #Cilo para guardar los ingredientes
+        while bandera:
+            #Guarda el paso de la receta
+            ingrediente = ingredientesReceta(receta=recetaGeneral, ingredientes=request.POST["ingrediente" + str(iterador)])
+            ingrediente.save()
+            # Incrementa el iterador para obtener el siguiente paso
+            iterador += 1
+            # Se intenta mostrar el contenido del siguiente paso a guardar
+            try:
+                print(request.POST["ingrediente" + str(iterador)])
             except:
                 # Si falla el intento la "bandera" cambia a false para que el ciclo se detenga
                 bandera = False

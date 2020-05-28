@@ -4,10 +4,13 @@ from django.contrib.auth.models import User
 
 class recetas(models.Model):
     nombre = models.TextField()
-    ingredientes = models.TextField()
     descripcion = models.TextField()
     propietario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     imagenMuestra = models.ImageField(upload_to ='imgRecetas/', blank=True, null=True)
+
+class ingredientesReceta(models.Model):
+    receta = models.ForeignKey(recetas, on_delete=models.CASCADE)
+    ingredientes = models.TextField()
 
 class imgReceta(models.Model):
     receta = models.ForeignKey(recetas, on_delete=models.CASCADE)

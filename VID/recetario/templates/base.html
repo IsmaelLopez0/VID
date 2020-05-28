@@ -12,6 +12,7 @@
         {% block navbar %}
         <nav class="navbar sticky-top navbar-light" style="background-color: #249E16;">
             <div class="d-flex justify-content-start">
+
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'img\vegetarianosN.jpg' %}" class="d-inline-block align-top" width="30" height="30">
                     VID matchRecipes
@@ -36,7 +37,7 @@
                         </div>
                     </div>
                 {% endif %}
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand"  href="{% url 'resExplorar' %}" >
                     Explorar
                     <img src="{% static 'img\explorar.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
                 </a>
@@ -70,5 +71,7 @@
             </p>
         </nav>
     </footer>
-    {% endblock %}
+ {% endblock %}
+
+
 </html>
