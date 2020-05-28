@@ -15,19 +15,12 @@
         </div>
     </div>
     <div class="row justify-content-around">
+
         <div class="col-5">
             <div class="row mx-auto">
                 <div class="col-12">
                     <div class="form-group">
                         <input class="form-control text-center" type="text" name="nombre" id="id_nombre" placeholder="Nombre de receta" required>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mx-auto">
-                <div class="col-12">
-                    <div class="form-group">
-                        <input class="form-control text-center" type="text" name="ingredientes" id="id_ingredientes" placeholder="Ingredientes" required>
                     </div>
                 </div>
             </div>
@@ -41,20 +34,24 @@
             </div>
 
             <div class="row mx-auto">
-                <div class="col-12 form-group">
-                    <div class="">
-                        <input type="file" class="" name="imagenMuestra" id="id_imagenMuestra">
-                        <label class="" for="id_imagenMuestra">Selecciona una imagen</label>
+                <div class="col-12">
+                    <div id="ingrediente">
+                        <div class="form-group" id="div_ingrediente0">
+                            <input class="form-control text-center" type="text" name="ingrediente1" id="id_ingrediente" 
+                            placeholder="Ingrediente 1" required>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row d-flex justify-content-center">
-                <div class="form-group">
-                    <button type="button" class="btn btn-outline-success" onclick="add();" id="addImg">+</button>
-                    <button type="button" class="btn btn-outline-danger" onclick="rem();" id="remImg">-</button>
+                <div class="row mx-auto">
+                    <div class="col-12 form-group">
+                        <div class="">
+                            <input type="file" class="" name="imagenMuestra" id="id_imagenMuestra">
+                            <label class="" for="id_imagenMuestra">Selecciona una imagen</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
             <div class="row mx-auto">
                 <div class="col-12 form-group">
@@ -65,13 +62,26 @@
             </div>
         </div>
 
-        <div class="col-5">
-            <div class="row d-flex justify-content-center">
-                <div class="">
-                    <button type="button" class="btn btn-outline-success" onclick="addpaso();" id="addPaso">+</button>
-                    <button type="button" class="btn btn-outline-danger" onclick="rempaso();" id="remPaso">-</button>
+
+        <div class="col-1">
+            <div class="row d-flex justify-content-center" style="margin-top: 110px; margin-left: -110px;" >          
+                <div class="form-group">
+                    <button type="button" class="btn btn-outline-success" onclick="addIngrediente();" id="addIng">+</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="remIngrediente();" id="remIng">-</button>
                 </div>
             </div>
+            <div id="botonesImagen" class="row d-flex justify-content-center" style="margin-top: 0px; margin-left: -110px;" >          
+                <div class="form-group">
+                    <button type="button" class="btn btn-outline-success" onclick="add();" id="addImg">+</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="rem();" id="remImg">-</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        
+        <div class="col-5">
             <div class="row mx-auto">
                 <div class="col-12">
                     <div id="pasos">
@@ -83,21 +93,42 @@
                 </div>
             </div>
         </div>
+
+
+        
+        <div class="row d-flex justify-content-center">
+            <div class="" style="margin-top: 55px; margin-left: -10px;" >
+                <button type="button" class="btn btn-outline-success" onclick="addpaso();" id="addPaso">+</button>
+                <button type="button" class="btn btn-outline-danger" onclick="rempaso();" id="remPaso">-</button>
+            </div>
+        </div>
+
     </div>
+
+    {% if user.is_authenticated %}
 
     <div class="row d-flex justify-content-center mb-5">
         <button type="submit" class="btn btn-lg text-white pl-5 pr-5" name="button" style="background-color: #249E16;">Registrar receta</button>
     </div>
+
+    {% else %}
+    <div class="text-center">
+        <a style="font-size: large;" href="{% url 'login' %}">Iniciar sesión</a>
+    </div>
+    {% endif %}
 </form>
 {% endblock %}
 
 {% block js %}
 <script type='text/javascript'>
     var num = 0;
+    var numIng = 1;
     var numPasos = 1;
 
     function add(){ num++; ctrlImagenes(); }
     function rem(){ if(num != 0){num--;} ctrlImagenes(); }
+    function addIngrediente(){ numIng++; ctrlIngredientes(); }
+    function remIngrediente(){ if(numIng != 1){numIng--;} ctrlIngredientes(); }
     function addpaso(){ numPasos++; ctrlPasos(); }
     function rempaso(){ if(numPasos != 1){numPasos--;} ctrlPasos(); }
 
@@ -152,6 +183,30 @@
             input.name = "paso" + (i+1);
             input.id = "id_paso" + (i+1);
             input.rows = "2";
+            input.required = 'required';
+            newDiv.appendChild(input);
+            //newDiv.appendChild(document.createElement("br"));
+        }
+
+        
+    }
+    function ctrlIngredientes(){
+        var container = document.getElementById("ingrediente");
+        while (container.hasChildNodes()) {
+            container.removeChild(container.lastChild);
+        }
+        for (i=0;i<numIng;i++){
+            var newDiv = document.createElement('div');
+            newDiv.className += "form-group";
+            newDiv.id = "div_ingrediente" + (i+1);
+            container.appendChild(newDiv);
+
+            var input = document.createElement("input");
+            input.className += "form-control text-center";
+            input.name = "ingrediente" + (i+1);
+            input.id = "id_ingrediente" + (i+1);
+            input.placeholder = "Ingrediente" + (i+1);
+            input.rows = "1";
             input.required = 'required';
             newDiv.appendChild(input);
             //newDiv.appendChild(document.createElement("br"));
