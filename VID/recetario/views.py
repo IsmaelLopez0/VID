@@ -63,3 +63,11 @@ def guardarReceta(request):
         return redirect('index')
     #Redirige a la página de crear receta
     return redirect('crearReceta')
+
+def misRecetas(request):
+    receta = recetas.objects.filter(propietario=request.user.id)
+    return render(request, 'misRecetas.html', {'recetas': receta})
+
+def eliminarReceta(request, id):
+    recetas.objects.filter(id=id).delete()
+    return redirect('misRecetas')
