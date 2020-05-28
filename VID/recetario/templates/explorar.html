@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row m-5">
+  {% for element in expReceta %}
+    <div class="card float-left" style="width: 18rem;">
+      <img src="{{ MEDIA_URL }}{{ element.imagenMuestra }}" class="card-img-top" height="200px" width="200px"alt="...">
+      <div class="card-body" style="background-color: #249E16;">
+        <h5 class="card-title text-white" name='nombreReceta' type="text">{{ element.nombre }}</h5>
+        <p class="card-text text-white">{{ element.descripcion }}</p>
+        <a href="{url 'mostrarReceta' element.id}" class="btn btn-light float-right">Ver receta</a>
+      </div>
+    </div>
+    {% endfor %}
+    
+{% endblock %}

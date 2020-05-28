@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row m-5">
+    {% for element in resultadoReceta %}
+    <div class="card float-left" style="width: 28rem; height: 32rem;">
+        <div class="card float-left" style="width: 28rem; height: 12rem;">
+            <button class="btn btn-outline-dark" style="height: 17rem;" type="submit" name="btnBuscar" id="id_btnBuscar" name="button">
+                <img src="{{ MEDIA_URL }}{{ element.imagenMuestra }}" width="150" height="150"alt="...">
+                <br>
+                Sube aquí una foto de tu platillo
+            </button>
+        </div>
+        <div class="card float-left" style="width: 28rem; height: 20rem; margin-top: 1rem;">
+            <div class="d-inline-flex p-2">
+                <p style="margin-top: 1rem;">{{ element.nombre }}</p>
+                <input class="form-control m-2 col-10" name="nombre" id="nom_receta" type="text" placeholder="Nombre de la receta">
+            </div>
+            <div class="card float-left">
+                <p>{{element.ingredientes}}</p>
+                <textarea id="pasos" rows="10" placeholder="Cantidad y nombre de cada uno"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mx-auto" style="width: 45rem; height: 36rem;">
+        <h5 class="card-title">{{element.pasos}}}</h5>
+        <textarea id="pasos" rows="24" placeholder="Escribe aquí los pasos que sigues para cocinar"></textarea>
+    </div>
+</div>
+{% endfor %} 
+
+{% endblock %}
