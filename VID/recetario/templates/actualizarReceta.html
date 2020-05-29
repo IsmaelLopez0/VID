@@ -137,10 +137,26 @@
 
     /*function add(){ num++; ctrlImagenes(); }
     function rem(){ if(num != 0){num--;} ctrlImagenes(); }*/
-    function addIngrediente(){ numIng++; ctrlIngredientes(); }
-    function remIngrediente(){ if(numIng != 1){numIng--;} ctrlIngredientes(); }
-    function addpaso(){ numPasos++; ctrlPasos(); }
-    function rempaso(){ if(numPasos != 1){ numPasos--;} ctrlPasos(); }
+    function addIngrediente(){
+        actArrayIngredientes();
+        numIng++;
+        ctrlIngredientes(); }
+    function remIngrediente(){
+        actArrayIngredientes();
+        if(numIng != 1){
+            numIng--;
+            ingredientesSplit.pop();}
+        ctrlIngredientes(); }
+    function addpaso(){
+        actArrayPasos();
+        numPasos++;
+        ctrlPasos(); }
+    function rempaso(){
+        actArrayPasos();
+        if(numPasos != 1){
+            numPasos--;
+            pasosSplit.pop();}
+        ctrlPasos(); }
 
     /*function ctrlImagenes(){
         var container = document.getElementById("images");
@@ -171,6 +187,17 @@
         }
     }*/
 
+    function actArrayPasos(){
+        pasosSplit = [];
+        var name = ""
+        for(i=0; i<numPasos; i++){
+            name = "id_paso"+(i+1);
+            var data = document.getElementById(name).value;
+            pasosSplit.push(data);
+        }
+    }
+    actArrayPasos();
+
     function ctrlPasos(){
         var container = document.getElementById("pasos");
         while (container.hasChildNodes()) {
@@ -194,7 +221,7 @@
             input.id = "id_paso" + (i+1);
             input.rows = "2";
             input.required = 'required';
-            if(ingredientesSplit[i]==undefined){
+            if(pasosSplit[i]==undefined){
                 input.value = '';
             }else{
                 input.value = pasosSplit[i];
@@ -202,9 +229,19 @@
             newDiv.appendChild(input);
             //newDiv.appendChild(document.createElement("br"));
         }
-
-
     }
+
+    function actArrayIngredientes(){
+        ingredientesSplit = [];
+        var name = ""
+        for(i=0; i<numIng; i++){
+            name = "id_ingrediente"+(i+1);
+            var data = document.getElementById(name).value;
+            ingredientesSplit.push(data);
+        }
+    }
+    actArrayIngredientes();
+
     function ctrlIngredientes(){
         var container = document.getElementById("ingrediente");
         while (container.hasChildNodes()) {

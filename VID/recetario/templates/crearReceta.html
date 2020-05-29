@@ -38,7 +38,7 @@
                     <label>Ingredientes:</label>
                     <div id="ingrediente">
                         <div class="form-group" id="div_ingrediente0">
-                            <input class="form-control text-center" type="text" name="ingrediente1" id="id_ingrediente" 
+                            <input class="form-control text-center" type="text" name="ingrediente1" id="id_ingrediente1"
                             placeholder="Ingrediente 1" required>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                 <div class="row mx-auto">
                     <div class="col-12 form-group">
                         <div class="">
-                            <input type="file" class="" name="imagenMuestra" id="id_imagenMuestra">
+                            <input type="file" class="" name="imagenMuestra" id="id_imagenMuestra" accept="image/*">
                             <label class="" for="id_imagenMuestra">Selecciona una imagen</label>
                         </div>
                     </div>
@@ -118,12 +118,40 @@
     var numIng = 1;
     var numPasos = 1;
 
-    function add(){ num++; ctrlImagenes(); }
-    function rem(){ if(num != 0){num--;} ctrlImagenes(); }
-    function addIngrediente(){ numIng++; ctrlIngredientes(); }
-    function remIngrediente(){ if(numIng != 1){numIng--;} ctrlIngredientes(); }
-    function addpaso(){ numPasos++; ctrlPasos(); }
-    function rempaso(){ if(numPasos != 1){numPasos--;} ctrlPasos(); }
+    function add(){
+        //actArrayImagenes();
+        num++;
+        ctrlImagenes(); }
+    function rem(){
+        if(num != 0){num--;}
+        ctrlImagenes(); }
+    function addIngrediente(){
+        actArrayIngredientes();
+        numIng++;
+        ctrlIngredientes(); }
+    function remIngrediente(){
+        if(numIng != 1){ numIng--;}
+        ctrlIngredientes(); }
+    function addpaso(){
+        actArrayPasos();
+        numPasos++;
+        ctrlPasos(); }
+    function rempaso(){
+        if(numPasos != 1){numPasos--;}
+        ctrlPasos(); }
+
+    /*var arrayImagenes = [];
+    function actArrayImagenes(){
+        arrayImagenes = [];
+        var name = ""
+        for(i=0; i<num; i++){
+            name = "id_image"+(i+1);
+            var data = document.getElementById(name).value;
+            arrayImagenes.push(data);
+        }
+        alert(arrayImagenes);
+    }
+    actArrayImagenes();*/
 
     function ctrlImagenes(){
         var container = document.getElementById("images");
@@ -132,27 +160,39 @@
         }
         for (i=0;i<num;i++){
             var newDiv = document.createElement('div');
-            newDiv.className += "custom-file mb-1";
+            //newDiv.className += "custom-file mb-1";
             newDiv.id = "div_image" + (i+1);
             container.appendChild(newDiv);
 
             var newLabel = document.createElement('label');
-            newLabel.className += "custom-file-label";
-            newLabel.innerHTML = "Imagen extra";
+            newLabel.className += "mr-2";
+            newLabel.innerHTML = "Imagen " + (i+1) + " extra: ";
             newLabel.name = "image" + i;
             newDiv.appendChild(newLabel);
 
             var input = document.createElement("input");
-            input.className += "custom-file-input";
+            //input.className += "custom-file-input";
             input.type = "file";
             input.name = "image" + (i+1);
             input.id = "id_image" + (i+1);
             input.required = 'required';
-            //input.accept = "image/*";
+            input.accept = "image/*";
             newDiv.appendChild(input);
             //newDiv.appendChild(document.createElement("br"));
         }
     }
+
+    var arrayPasos = [];
+    function actArrayPasos(){
+        arrayPasos = [];
+        var name = ""
+        for(i=0; i<numPasos; i++){
+            name = "id_paso"+(i+1);
+            var data = document.getElementById(name).value;
+            arrayPasos.push(data);
+        }
+    }
+    actArrayPasos();
 
     function ctrlPasos(){
         var container = document.getElementById("pasos");
@@ -177,12 +217,28 @@
             input.id = "id_paso" + (i+1);
             input.rows = "2";
             input.required = 'required';
+            if(arrayPasos[i] == undefined){
+                input.value = "";
+            }else{
+                input.value = arrayPasos[i];
+            }
             newDiv.appendChild(input);
             //newDiv.appendChild(document.createElement("br"));
         }
-
-        
     }
+
+    var arrayIngredientes = [];
+    function actArrayIngredientes(){
+        arrayIngredientes = [];
+        var name = ""
+        for(i=0; i<numIng; i++){
+            name = "id_ingrediente"+(i+1);
+            var data = document.getElementById(name).value;
+            arrayIngredientes.push(data);
+        }
+    }
+    actArrayIngredientes();
+
     function ctrlIngredientes(){
         var container = document.getElementById("ingrediente");
         while (container.hasChildNodes()) {
@@ -201,6 +257,11 @@
             input.placeholder = "Ingrediente" + (i+1);
             input.rows = "1";
             input.required = 'required';
+            if(arrayIngredientes[i] == undefined){
+                input.value = "";
+            }else{
+                input.value = arrayIngredientes[i];
+            }
             newDiv.appendChild(input);
             //newDiv.appendChild(document.createElement("br"));
         }
