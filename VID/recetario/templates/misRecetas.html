@@ -4,7 +4,14 @@
 
 {% block content %}
 <div class="container-fluid">
-    <h4 class="m-3">Recetas de {{ request.user.first_name }} {{ request.user.last_name }}</h4>
+    <div class="navbar col-9 mx-auto">
+        <div class="d-flex justify-content-start"><div>
+            <h4 class="m-3">Recetas de {{ request.user.first_name }} {{ request.user.last_name }}</h4></div>
+        </div>
+        <div class="d-flex justify-content-end"><div>
+            <a class="btn btn-primary" href="{% url 'crearReceta' %}">Crear receta</a></div>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <table class="table col-9">
             <thead class="bg-success text-white">
@@ -22,7 +29,7 @@
                         {{element.nombre}}
                     </td>
                     <td>{{element.descripcion}}</td>
-                    <td><a class="btn btn-info" href="#">Modificar</a> <a class="btn btn-danger" href="{% url 'eliminarReceta' element.id %}">Eliminar</a></td>
+                    <td><a class="btn btn-info" href="{% url 'actualizarReceta' element.id %}">Modificar</a> <a class="btn btn-danger" href="{% url 'eliminarReceta' element.id %}">Eliminar</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

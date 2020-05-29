@@ -16,6 +16,8 @@ urlpatterns = [
     path('mostrar/<id>', mostrarReceta, name='mostrarReceta'),
     path('misRecetas/', misRecetas, name='misRecetas'),
     path('eliminar/<id>', eliminarReceta, name='eliminarReceta'),
+    path('actualizar/<id>', actualizarReceta, name='actualizarReceta'),
+    path('finActualizarReceta/<id>', finActualizarReceta, name='finActualizarReceta'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

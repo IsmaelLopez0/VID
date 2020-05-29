@@ -3,11 +3,11 @@
 {% load static %}
 
 {% block content %}
-<form method="post" action="{% url 'guardarReceta' %}" class="p-2 m-2 p-4 bg-white" enctype="multipart/form-data">
+<form method="post" action="{% url 'finActualizarReceta' receta.id %}" class="p-2 m-2 p-4 bg-white" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="row mx-auto">
         <div class="col-12">
-            <h2>¡Crea tu receta!</h2>
+            <h2>Actualiza: {{receta.nombre}} </h2>
         </div>
         <div class="row mx-auto align-items-center mt-2 mb-3">
             <img src="{% static 'img\Vegetarianos.png' %}" class="rounded mx-auto d-block" width="100" height="100">
@@ -20,7 +20,7 @@
             <div class="row mx-auto">
                 <div class="col-12">
                     <div class="form-group">
-                        <input class="form-control text-center" type="text" name="nombre" id="id_nombre" placeholder="Nombre de receta" required>
+                        <input class="form-control text-center" type="text" name="nombre" id="id_nombre" placeholder="Nombre de receta" required value="{{receta.nombre}}">
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
             <div class="row mx-auto">
                 <div class="col-12">
                     <div class="form-group">
-                        <input class="form-control text-center" type="text" name="descripcion" id="id_descripcion" placeholder="Descripción corta" required>
+                        <input class="form-control text-center" type="text" name="descripcion" id="id_descripcion" placeholder="Descripción corta" required value="{{receta.descripcion}}">
                     </div>
                 </div>
             </div>
@@ -38,21 +38,21 @@
                     <label>Ingredientes:</label>
                     <div id="ingrediente">
                         <div class="form-group" id="div_ingrediente0">
-                            <input class="form-control text-center" type="text" name="ingrediente1" id="id_ingrediente" 
+                            <input class="form-control text-center" type="text" name="ingrediente1" id="id_ingrediente"
                             placeholder="Ingrediente 1" required>
                         </div>
                     </div>
                 </div>
             </div>
 
-                <div class="row mx-auto">
+                <!--div class="row mx-auto">
                     <div class="col-12 form-group">
                         <div class="">
                             <input type="file" class="" name="imagenMuestra" id="id_imagenMuestra">
                             <label class="" for="id_imagenMuestra">Selecciona una imagen</label>
                         </div>
                     </div>
-                </div>
+                </div-->
 
             <div class="row mx-auto">
                 <div class="col-12 form-group">
@@ -65,23 +65,23 @@
 
 
         <div class="col-1">
-            <div class="row d-flex justify-content-center" style="margin-top: 110px; margin-left: -110px;" >          
+            <div class="row d-flex justify-content-center" style="margin-top: 110px; margin-left: -110px;" >
                 <div class="form-group">
                     <button type="button" class="btn btn-outline-success" onclick="addIngrediente();" id="addIng">+</button>
                     <button type="button" class="btn btn-outline-danger" onclick="remIngrediente();" id="remIng">-</button>
                 </div>
             </div>
-            <div id="botonesImagen" class="row d-flex justify-content-center" style="margin-top: 0px; margin-left: -110px;" >          
+            <!--div id="botonesImagen" class="row d-flex justify-content-center" style="margin-top: 0px; margin-left: -110px;" >
                 <div class="form-group">
                     <button type="button" class="btn btn-outline-success" onclick="add();" id="addImg">+</button>
                     <button type="button" class="btn btn-outline-danger" onclick="rem();" id="remImg">-</button>
                 </div>
-            </div>
+            </div-->
         </div>
 
 
 
-        
+
         <div class="col-5">
             <div class="row mx-auto">
                 <div class="col-12">
@@ -96,7 +96,7 @@
         </div>
 
 
-        
+
         <div class="row d-flex justify-content-center">
             <div class="" style="margin-top: 55px; margin-left: -10px;" >
                 <button type="button" class="btn btn-outline-success" onclick="addpaso();" id="addPaso">+</button>
@@ -106,26 +106,43 @@
 
     </div>
 
+    {% if user.is_authenticated %}
+
     <div class="row d-flex justify-content-center mb-5">
-        <button type="submit" class="btn btn-lg text-white pl-5 pr-5" name="button" style="background-color: #249E16;">Registrar receta</button>
+        <button type="submit" class="btn btn-lg text-white pl-5 pr-5" name="button" style="background-color: #249E16;">Actualizar receta</button>
     </div>
+
+    {% else %}
+    <div class="text-center">
+        <a style="font-size: large;" href="{% url 'login' %}">Iniciar sesión</a>
+    </div>
+    {% endif %}
 </form>
 {% endblock %}
 
 {% block js %}
 <script type='text/javascript'>
-    var num = 0;
-    var numIng = 1;
-    var numPasos = 1;
+    //var num = {{cantImg}};
+    var numIng = {{cantIngredientes}};
+    var numPasos = {{cantPasos}};
+    var pasos = '{{pasos}}';
+    var pasosSplit = pasos.split(',');
 
-    function add(){ num++; ctrlImagenes(); }
-    function rem(){ if(num != 0){num--;} ctrlImagenes(); }
+    var ingredientes = '{{ingredientes}}';
+    var ingredientesSplit = ingredientes.split(',');
+
+    //ctrlImagenes();
+    ctrlIngredientes();
+    ctrlPasos();
+
+    /*function add(){ num++; ctrlImagenes(); }
+    function rem(){ if(num != 0){num--;} ctrlImagenes(); }*/
     function addIngrediente(){ numIng++; ctrlIngredientes(); }
     function remIngrediente(){ if(numIng != 1){numIng--;} ctrlIngredientes(); }
     function addpaso(){ numPasos++; ctrlPasos(); }
-    function rempaso(){ if(numPasos != 1){numPasos--;} ctrlPasos(); }
+    function rempaso(){ if(numPasos != 1){ numPasos--;} ctrlPasos(); }
 
-    function ctrlImagenes(){
+    /*function ctrlImagenes(){
         var container = document.getElementById("images");
         while (container.hasChildNodes()) {
             container.removeChild(container.lastChild);
@@ -137,7 +154,7 @@
             container.appendChild(newDiv);
 
             var newLabel = document.createElement('label');
-            newLabel.className += "custom-file-label";
+            //newLabel.className += "custom-file-label";
             newLabel.innerHTML = "Imagen extra";
             newLabel.name = "image" + i;
             newDiv.appendChild(newLabel);
@@ -152,7 +169,7 @@
             newDiv.appendChild(input);
             //newDiv.appendChild(document.createElement("br"));
         }
-    }
+    }*/
 
     function ctrlPasos(){
         var container = document.getElementById("pasos");
@@ -177,11 +194,16 @@
             input.id = "id_paso" + (i+1);
             input.rows = "2";
             input.required = 'required';
+            if(ingredientesSplit[i]==undefined){
+                input.value = '';
+            }else{
+                input.value = pasosSplit[i];
+            }
             newDiv.appendChild(input);
             //newDiv.appendChild(document.createElement("br"));
         }
 
-        
+
     }
     function ctrlIngredientes(){
         var container = document.getElementById("ingrediente");
@@ -201,7 +223,13 @@
             input.placeholder = "Ingrediente" + (i+1);
             input.rows = "1";
             input.required = 'required';
+            if(ingredientesSplit[i]==undefined){
+                input.value = '';
+            }else{
+                input.value = ingredientesSplit[i];
+            }
             newDiv.appendChild(input);
+            console.log(ingredientesSplit[i]);
             //newDiv.appendChild(document.createElement("br"));
         }
     }
