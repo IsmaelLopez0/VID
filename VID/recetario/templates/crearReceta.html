@@ -15,73 +15,56 @@
         </div>
     </div>
     <div class="row justify-content-around">
-
-        <div class="col-5">
-            <div class="row mx-auto">
-                <div class="col-12">
-                    <div class="form-group">
-                        <input class="form-control text-center" type="text" name="nombre" id="id_nombre" placeholder="Nombre de receta" required>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mx-auto">
-                <div class="col-12">
-                    <div class="form-group">
-                        <input class="form-control text-center" type="text" name="descripcion" id="id_descripcion" placeholder="Descripción corta" required>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mx-auto">
-                <div class="col-12">
-                    <label>Ingredientes:</label>
-                    <div id="ingrediente">
-                        <div class="form-group" id="div_ingrediente0">
-                            <input class="form-control text-center" type="text" name="ingrediente1" id="id_ingrediente1"
-                            placeholder="Ingrediente 1" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-                <div class="row mx-auto">
-                    <div class="col-12 form-group">
-                        <div class="">
-                            <input type="file" class="" name="imagenMuestra" id="id_imagenMuestra" accept="image/*">
+        <div class="row">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <input class="form-control text-center" type="text" name="descripcion" id="id_descripcion" placeholder="Descripción corta" required>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Ingredientes:</label>
+                            <div id="ingrediente">
+                                <div class="form-group" id="div_ingrediente0">
+                                    <input class="form-control text-center" type="text" name="ingrediente1" id="id_ingrediente1"
+                                    placeholder="Ingrediente 1" required>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-outline-success" onclick="addIngrediente();" id="addIng">+</button>
+                                <button type="button" class="btn btn-outline-danger" onclick="remIngrediente();" id="remIng">-</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" class="" name="imagenMuestra" id="id_imagenMuestra" accept="image/*" required>
                             <label class="" for="id_imagenMuestra">Selecciona una imagen</label>
-                        </div>
-                    </div>
-                </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="images">
 
-            <div class="row mx-auto">
-                <div class="col-12 form-group">
-                    <div id="images">
-
-                    </div>
-                </div>
-            </div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-outline-success" onclick="add();" id="addImg">+</button>
+                            <button type="button" class="btn btn-outline-danger" onclick="rem();" id="remImg">-</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-
-        <div class="col-1">
-            <div class="row d-flex justify-content-center" style="margin-top: 110px; margin-left: -110px;" >          
-                <div class="form-group">
-                    <button type="button" class="btn btn-outline-success" onclick="addIngrediente();" id="addIng">+</button>
-                    <button type="button" class="btn btn-outline-danger" onclick="remIngrediente();" id="remIng">-</button>
-                </div>
-            </div>
-            <div id="botonesImagen" class="row d-flex justify-content-center" style="margin-top: 0px; margin-left: -110px;" >          
-                <div class="form-group">
-                    <button type="button" class="btn btn-outline-success" onclick="add();" id="addImg">+</button>
-                    <button type="button" class="btn btn-outline-danger" onclick="rem();" id="remImg">-</button>
-                </div>
-            </div>
-        </div>
-
-
-
-        
         <div class="col-5">
             <div class="row mx-auto">
                 <div class="col-12">

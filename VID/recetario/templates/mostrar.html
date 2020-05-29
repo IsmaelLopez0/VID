@@ -1,29 +1,36 @@
 {% extends 'base.html' %}
-{% block content %}
-<div class="row m-5">
-    {% for element in receta %}
-    <div class="card float-left" style="width: 28rem; height: 32rem;">
-        <div class="card float-left" style="width: 28rem; height: 12rem;">
-            <button class="btn btn-outline-dark" style="height: 17rem;" type="submit" name="btnBuscar" id="id_btnBuscar" name="button">
-                <img src="{{ MEDIA_URL }}{{ element.imagenMuestra }}" width="170" height="170"alt="...">
-                <br>
-                imagen del platillo
-            </button>
-        </div>
-        <div class="card float-left" style="width: 28rem; height: 20rem; margin-top: 1rem;">
-            <div class="d-inline-flex p-2">
-                <p class="form-control m-2 col-10" name="nombre" id="nom_receta" placeholder="Nombre de la receta">{{ element.nombre }}</p>
-            </div>
-            <div class="card float-left">
-                <p id="pasos" rows="10" placeholder="Cantidad y nombre de cada uno">{{element.descripcion}}</p>
-            </div>
-        </div>
-    </div>
 
-    <div class="card mx-auto" style="width: 45rem; height: 36rem;">
-        <p class="card-title" id="pasos" rows="24" >{{ element.pasos }}</p>
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="card w-25 m-5">
+            <img class="card-img-top" src="{{MEDIA_URL}}{{receta.imagenMuestra}}" alt="Imagen de muestra de {{receta.nombre}}">
+            <div class="card-body">
+                <h4 class="card-title">{{receta.nombre}}</h4>
+                <p class="card-text">{{receta.descripcion}}</p>
+                <p class="card-text"><a class="font-weight-bold">Autor:</a> {{receta.propietario.username}}</p>
+            </div>
+        </div>
+
+        <div class="card w-50 m-3" name="divPasos">
+            <div class="card-body">
+                <h5 class="card-title">Ingredientes:</h5>
+                <ul class="list-group">
+                    {% for element in ingredientes %}
+                    <li class="list-group-item w-50">{{element.ingredientes}}</li>
+                    {% endfor %}
+                </ul>
+
+                <h5 class="card-title mt-5">Pasos:</h5>
+                <ol class="list-group">
+                    {% for element in pasos %}
+                    <li class="list-group-item">{{element.paso}}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
     </div>
 </div>
-{% endfor %} 
-
 {% endblock %}

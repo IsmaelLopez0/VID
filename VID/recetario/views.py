@@ -11,8 +11,12 @@ def resBusqueda(request):
 
 
 def mostrarReceta(request, id):
-    receta = recetas.objects.filter(id=id)
-    return render(request, 'mostrar.html', {'receta':receta})    
+    receta = recetas.objects.get(id=id)
+    ingredientes = ingredientesReceta.objects.filter(receta=id)
+    pasos = pasosReceta.objects.filter(receta=id).order_by('pasoNumer')
+    return render(request, 'mostrar.html', {'receta':receta,
+                                            'ingredientes': ingredientes,
+                                            'pasos':pasos})
 
 def resExplorar(request):
     expReceta = recetas.objects.all()   
