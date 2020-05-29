@@ -1,9 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'baseLogin.html' %}
 
 {% load static %}
 
+
 {% block content %}
-<div class="container-fluid row justify-content-around mb-5 justify-content-center">
+<div class="container-fluid row justify-content-around mb-5 mt-3 justify-content-center">
     <div class="card m-3 col-5">
         <form class="card-body justify-content-center row" method="post">
             {% csrf_token %}
@@ -29,7 +30,7 @@
 
                 <div class="form-group mb-2">
                     <label class="mr-2">Correo:</label>
-                    <input type="email" class="form-control" value="{{ user.email }}" name="email" id="id_email" placeholder="{{ request.user.email }} onKeyUp="validar();">
+                    <input type="email" class="form-control" value="{{ user.email }}" name="email" id="id_email" placeholder="{{ request.user.email }}" onKeyUp="validar();">
                 </div>
 
                 <div class="row justify-content-center mt-3">
@@ -50,47 +51,10 @@
         </form>
     </div>
 
-
-    <div class="col-5">
-        <input type="text" id="member" name="member" value="">Number of members: (max. 10)<br />
-        <a href="#" id="filldetails" onclick="addFields()">Fill Details</a>
-        <button onclick="add()">Agregar</button>
-        <button onclick="rem()">Remover</button>
-        <div id="container"/>
-    </div>
-
 </div>
 {% endblock %}
 
 {% block js %}
-<script type='text/javascript'>
-    var num = 0;
-
-    function add(){ num++; addFields(); }
-    function rem(){ num--; addFields(); }
-
-    function addFields(){
-        // Number of inputs to create
-        var number = document.getElementById("member").value;
-        // Container <div> where dynamic content will be placed
-        var container = document.getElementById("container");
-        // Clear previous contents of the container
-        while (container.hasChildNodes()) {
-            container.removeChild(container.lastChild);
-        }
-        for (i=0;i<num;i++){
-            // Append a node with a random text
-            container.appendChild(document.createTextNode("Imagen " + (i+1)));
-            // Create an <input> element, set its type and name attributes
-            var input = document.createElement("input");
-            input.type = "file";
-            input.name = "image" + i;
-            container.appendChild(input);
-            // Append a line break
-            container.appendChild(document.createElement("br"));
-        }
-    }
-</script>
 <script type="text/javascript">
 
     //Inicializar variables

@@ -8,7 +8,7 @@
       <div class="card-body" style="background-color: #249E16;">
         <h5 class="card-title text-white" name='nombreReceta' type="text">{{ element.nombre }}</h5>
         <p class="card-text text-white">{{ element.descripcion }}</p>
-        <a href="{url 'mostrarReceta' element.id}" class="btn btn-light float-right">Ver receta</a>
+        <a href="{% url 'mostrarReceta' element.id %}" class="btn btn-light float-right">Ver receta</a>
       </div>
     </div>
     {% endfor %}

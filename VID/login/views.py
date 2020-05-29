@@ -72,11 +72,10 @@ def perfil(request):
     if request.user.is_authenticated:
         #Inicializamos la variable de la lista de errores y la que contendrá los datos de usuario
         errores = []
-        user = None
+        user = User.objects.get(id=request.user.id)
         #Si la solicitud se hizo con el método POST
         if request.method == 'POST':
             #Obtenemos los datos del usuario que hizo la solicitud
-            user = User.objects.get(id=request.user.id)
             #Si el nombre de usuario es diferente al nombre de usuario que tiene ya registrado
             if request.POST['username'] != request.user.username:
                 #Si el nombre de usuario ya existe
@@ -90,7 +89,6 @@ def perfil(request):
                         last_name=request.POST['last_name'],
                         email=request.POST['email'])
             #Obtenemos los datos actualizados del usuario
-            print('3')
             user = User.objects.get(id=request.user.id)
         #Muestra la pantalla de perfil de usuario
         return render(request, 'perfil.html', {'user': user})

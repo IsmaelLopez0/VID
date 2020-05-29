@@ -26,7 +26,7 @@
                     </a>
                 {% else %}
                     <div class="dropdown open navbar-brand">
-                        <button class="btn dropdown-toggle text-white" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn dropdown-toggle font-weight-bold" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ request.user.first_name }} {{ request.user.last_name }}
                         </button>
                         <div class="dropdown-menu">
@@ -41,7 +41,7 @@
                     Explorar
                     <img src="{% static 'img\explorar.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
                 </a>
-                <a class="navbar-brand" href="nosotros/">
+                <a class="navbar-brand" href="{% url 'resNosotros' %}">
                     Nosotros
                     <img src="/static/img/nosotros.png" width="35" height="35" class="d-inline-block align-top" alt="">
                 </a>

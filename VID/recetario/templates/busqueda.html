@@ -6,16 +6,20 @@
 <div class="container-fluid">
     <h4 class="">Resultado de la busqueda: {{ buscar }} </h4>
     <div class="row m-4">
-        {% for element in resultado %}
-        <div class="card float-left col-3 border-0 mt-3">
-            <img src="{{ MEDIA_URL }}{{ element.imagenMuestra }}" class="card-img-top" height="200px" width="200px" alt="...">
-            <div class="card-body" style="background-color: #249E16;">
-                <h5 class="card-title text-white">{{ element.nombre }}</h5>
-                <p class="card-text text-white">{{ element.descripcion }}</p>
-                <a href="#" class="btn btn-light float-right">Ver receta</a>
-          </div>
-        </div>
-        {% endfor %}
+        {% if resultado.count == 0 %}
+            <p>No hay resultados que coincidan con tu búsqueda</p>
+        {% else %}
+            {% for element in resultado %}
+            <div class="card float-left col-3 border-0 mt-3">
+                <img src="{{ MEDIA_URL }}{{ element.imagenMuestra }}" class="card-img-top" height="200px" width="200px" alt="...">
+                <div class="card-body" style="background-color: #249E16;">
+                    <h5 class="card-title text-white">{{ element.nombre }}</h5>
+                    <p class="card-text text-white">{{ element.descripcion }}</p>
+                    <a href="{% url 'mostrarReceta' element.id %}" class="btn btn-light float-right">Ver receta</a>
+              </div>
+            </div>
+            {% endfor %}
+        {% endif %}
     </div>
 </div>
 {% endblock %}
